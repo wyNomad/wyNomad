@@ -44,12 +44,12 @@
 | 工作 | 上游记录 | 状态 |
 | :--- | :--- | :--- |
 | 昇腾 CANN / ACLNN、海光 DCU、平头哥 PPU 的构建与集成测试 | [Torch-FL #71](https://github.com/flagos-ai/Torch-FL/pull/71) · [#81](https://github.com/flagos-ai/Torch-FL/pull/81) · [#91](https://github.com/flagos-ai/Torch-FL/pull/91) | 已合入 · 共同作者 |
-| 按代码改动选择测试平台，支持受信任 Fork 按需运行 CI | [#521](https://github.com/flagos-ai/Torch-FL/pull/521) | 已合入 |
-| 收集各平台 pytest 结果并上报 FlagCICD | [#542](https://github.com/flagos-ai/Torch-FL/pull/542) | 已合入 |
+| 按代码改动选择测试平台，支持受信任 Fork 按需运行 CI | [Torch-FL #521](https://github.com/flagos-ai/Torch-FL/pull/521) | 已合入 |
+| 收集各平台 pytest 结果并上报 FlagCICD | [Torch-FL #542](https://github.com/flagos-ai/Torch-FL/pull/542) | 已合入 |
 | 昆仑芯 P800 训练环境、CI 与 Qwen3 训练测试支持 | [FlagScale #1282](https://github.com/flagos-ai/FlagScale/pull/1282) | 已合入 · 共同作者 |
 | 清理独立流水线迁移后的通用集成任务，统一配置与调用接口 | [个人提交](https://github.com/flagos-ai/Torch-FL/commit/1353c33ca7c1ac35ddbd21e0f9833db605d1a5ee) · [协作 PR #505](https://github.com/flagos-ai/Torch-FL/pull/505) | 已合入 · 共同作者 |
 
-[协作开发仓库 · BrianPei/PyTorch-Plugin-FL](https://github.com/BrianPei/PyTorch-Plugin-FL/branches) · [我发起的上游 PR](https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad)
+协作开发仓库：[Torch-FL](https://github.com/BrianPei/PyTorch-Plugin-FL/branches) · [FlagScale](https://github.com/BrianPei/FlagScale/branches) · [我发起的 Torch-FL PR](https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad)
 
 ### 📊 数据一览 · GitHub Stats
 
@@ -68,6 +68,8 @@
 </picture>
 </div>
 
+<sub>公开活动自动统计；语言图反映仓库与提交分布。具体工作与协作贡献见上方记录。</sub>
+
 ### 🐍 贡献足迹 · Contribution Snake
 
 <div align="center">
@@ -76,7 +78,7 @@
   <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg?v=4" width="100%" alt="Green contribution snake eating lower counts first and gaining one segment per four contributions, capped at 20" />
 </picture>
 
-
+<sub>根据 GitHub 贡献日历，先吃低贡献格子；累计每 4 次贡献长一节，最多 20 节。</sub>
 
 <br />
 <sub>保持好奇，持续构建。 · Stay curious. Keep building.</sub>
