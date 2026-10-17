@@ -23,8 +23,8 @@
 
 <div align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=python,cpp,c,pytorch,opencv,ros,linux,git&amp;theme=dark&amp;perline=8" />
-  <img src="https://skillicons.dev/icons?i=python,cpp,c,pytorch,opencv,ros,linux,git&amp;theme=light&amp;perline=8" alt="Python, C++, C, PyTorch, OpenCV, ROS, Linux, Git" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=python%2Ccpp%2Cc%2Cpytorch%2Copencv%2Cros%2Clinux%2Cgit&amp;theme=dark&amp;perline=8" />
+  <img src="https://skillicons.dev/icons?i=python%2Ccpp%2Cc%2Cpytorch%2Copencv%2Cros%2Clinux%2Cgit&amp;theme=light&amp;perline=8" alt="Python, C++, C, PyTorch, OpenCV, ROS, Linux, Git" />
 </picture>
 </div>
 
