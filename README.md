@@ -35,6 +35,7 @@
 | 🤖 机器人 | [农业巡检机器人](https://github.com/wyNomad/agricultural-inspection-robot) · [香橙派侧](https://github.com/wyNomad/agricultural-inspection-orangepi) | ROS 2 双主控项目，保留早期 / 中期源码，最终版本暂未公开 |
 | 🤖 机器人视觉 | [RoboMaster 自瞄](https://github.com/wyNomad/robomaster-auto-aim) | 相机采集、YOLO 装甲板检测、PnP 与云台串口，完整闭环仍在开发 |
 | 👁️ 计算机视觉 | [柑橘病害检测](https://github.com/wyNomad/citrus-disease-detection) | YOLO11 数据准备、微调与图片检测实验 |
+| 🧠 知识管理 | [MindOS](https://github.com/wyNomad/MindOS) | 基于 MindOS 维护的个人知识库：项目笔记、学习记录与可复用工作流 |
 
 ### 📊 数据一览 · GitHub Stats
 
