@@ -31,7 +31,10 @@
 | 方向 | 项目 | 内容 |
 | :--- | :--- | :--- |
 | ⚙️ AI Infra · 开源贡献 | [Torch-FL](https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad) | 多平台 CI、构建与测试流程改进 |
-| 🤖 机器人 | [农业巡检机器人](https://github.com/wyNomad/agricultural-inspection-robot) | ROS 2 农业巡检项目，早期源码存档 |
+| ⚙️ AI Infra · 推理优化 | [vLLM / FlagOS · Iluvatar 实验](https://github.com/wyNomad/vllm-plugin-FL/tree/perf/iluvatar-native2d-context-routing/experiments/iluvatar) | 基于上游的 attention 推理优化，包含插件实现、性能剖析与实验验证 |
+| 🤖 机器人 | [农业巡检机器人](https://github.com/wyNomad/agricultural-inspection-robot) · [香橙派侧](https://github.com/wyNomad/agricultural-inspection-orangepi) | ROS 2 双主控项目，保留早期 / 中期源码，最终版本暂未公开 |
+| 🤖 机器人视觉 | [RoboMaster 自瞄](https://github.com/wyNomad/robomaster-auto-aim) | 相机采集、YOLO 装甲板检测、PnP 与云台串口，完整闭环仍在开发 |
+| 👁️ 计算机视觉 | [柑橘病害检测](https://github.com/wyNomad/citrus-disease-detection) | YOLO11 数据准备、微调与图片检测实验 |
 
 ### 📊 数据一览 · GitHub Stats
 

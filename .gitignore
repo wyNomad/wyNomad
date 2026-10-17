@@ -1,0 +1,12 @@
+
+# Local environments and generated caches
+.env
+.env.*
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.idea/
+.DS_Store
+Thumbs.db
