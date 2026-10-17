@@ -1,11 +1,12 @@
 {
   "python": [
-    ".github/scripts/check_repository.py"
+    ".github/scripts"
   ],
   "xml": [
     "assets"
   ],
   "markdown": [
-    "README.md"
+    "README.md",
+    ".github/scripts/README.md"
   ]
 }
