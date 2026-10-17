@@ -30,7 +30,7 @@
 
 | 方向 | 项目 | 内容 |
 | :--- | :--- | :--- |
-| ⚙️ AI Infra · 开源贡献 | [Torch-FL](https://github.com/flagos-ai/Torch-FL) | 多平台 CI、构建与测试流水线、按改动路由与测试报告 |
+| ⚙️ AI Infra · 开源贡献 | [Torch-FL](https://github.com/flagos-ai/Torch-FL) · [FlagScale](https://github.com/flagos-ai/FlagScale) | 多平台 CI、构建与测试流水线、按改动路由与测试报告 |
 | ⚙️ AI Infra · 推理优化 | [vLLM / FlagOS · Iluvatar 实验](https://github.com/wyNomad/vllm-plugin-FL/tree/perf/iluvatar-native2d-context-routing/experiments/iluvatar) | 基于上游的 attention 推理优化，包含插件实现、性能剖析与实验验证 |
 | 🤖 机器人 | [农业巡检机器人](https://github.com/wyNomad/agricultural-inspection-robot) · [香橙派侧](https://github.com/wyNomad/agricultural-inspection-orangepi) | ROS 2 双主控项目，保留早期 / 中期源码，最终版本暂未公开 |
 | 🤖 机器人视觉 | [RoboMaster 自瞄](https://github.com/wyNomad/robomaster-auto-aim) | 相机采集、YOLO 装甲板检测、PnP 与云台串口，完整闭环仍在开发 |
@@ -39,12 +39,14 @@
 
 ### 🔗 开源贡献 · Open-source Contributions
 
-参与 Torch-FL 的多平台 CI 与构建测试基础设施开发，以下为已合入上游的代表工作。
+参与 Torch-FL 与 FlagScale 的多平台 CI、构建测试与训练环境适配，以下为已合入上游的代表工作。
 
 | 工作 | 上游记录 | 状态 |
 | :--- | :--- | :--- |
+| 昇腾 CANN / ACLNN、海光 DCU、平头哥 PPU 的构建与集成测试 | [Torch-FL #71](https://github.com/flagos-ai/Torch-FL/pull/71) · [#81](https://github.com/flagos-ai/Torch-FL/pull/81) · [#91](https://github.com/flagos-ai/Torch-FL/pull/91) | 已合入 · 共同作者 |
 | 按代码改动选择测试平台，支持受信任 Fork 按需运行 CI | [#521](https://github.com/flagos-ai/Torch-FL/pull/521) | 已合入 |
 | 收集各平台 pytest 结果并上报 FlagCICD | [#542](https://github.com/flagos-ai/Torch-FL/pull/542) | 已合入 |
+| 昆仑芯 P800 训练环境、CI 与 Qwen3 训练测试支持 | [FlagScale #1282](https://github.com/flagos-ai/FlagScale/pull/1282) | 已合入 · 共同作者 |
 | 清理独立流水线迁移后的通用集成任务，统一配置与调用接口 | [个人提交](https://github.com/flagos-ai/Torch-FL/commit/1353c33ca7c1ac35ddbd21e0f9833db605d1a5ee) · [协作 PR #505](https://github.com/flagos-ai/Torch-FL/pull/505) | 已合入 · 共同作者 |
 
 [协作开发仓库 · BrianPei/PyTorch-Plugin-FL](https://github.com/BrianPei/PyTorch-Plugin-FL/branches) · [我发起的上游 PR](https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad)
