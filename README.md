@@ -32,7 +32,6 @@
 | :--- | :--- | :--- |
 | ⚙️ AI Infra · 开源贡献 | [Torch-FL](https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad) | 多平台 CI、构建与测试流程改进 |
 | 🤖 机器人 | [农业巡检机器人](https://github.com/wyNomad/agricultural-inspection-robot) | ROS 2 农业巡检项目，早期源码存档 |
-| 👁️ 计算机视觉 | [cv_study](https://github.com/wyNomad/cv_study) | 计算机视觉学习与 Python 实践 |
 
 ### 📊 数据一览 · GitHub Stats
 
