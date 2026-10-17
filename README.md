@@ -2,7 +2,7 @@
 
 <img src="assets/header.svg" width="100%" alt="wyNomad — Explore. Build. Keep moving." />
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&amp;weight=500&amp;size=19&amp;duration=2800&amp;pause=1000&amp;color=6366F1&amp;center=true&amp;vCenter=true&amp;width=660&amp;lines=Computer+Vision+%C2%B7+Robotics+%C2%B7+AI;Python+%C2%B7+C%2B%2B+%C2%B7+Linux;Learning+by+building%2C+growing+through+open+source" width="100%" alt="Computer Vision · Robotics · AI — Learning by building, growing through open source" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&amp;weight=500&amp;size=19&amp;duration=2800&amp;pause=1000&amp;color=6366F1&amp;center=true&amp;vCenter=true&amp;width=660&amp;lines=Computer+Vision+%C2%B7+Robotics+%C2%B7+AI;Python+%C2%B7+C%2B%2B+%C2%B7+Linux;Learning+by+building.+Growing+with+open+source." width="100%" alt="Computer Vision · Robotics · AI — Learning by building, growing through open source" />
 
 **Hi, I'm wyi 👋**
 
@@ -57,14 +57,11 @@
 
 <div align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake-dark.svg" />
-  <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg" width="100%" alt="Animated snake following wyNomad's GitHub contributions" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake-dark.svg?v=1" />
+  <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg?v=1" width="100%" alt="Animated snake following wyNomad's GitHub contributions" />
 </picture>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=wyNomad&amp;theme=github_dark" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=wyNomad&amp;theme=github" width="100%" alt="Public contribution activity for wyNomad" />
-</picture>
+
 
 <br />
 <sub>保持好奇，持续构建。 · Stay curious. Keep building.</sub>
