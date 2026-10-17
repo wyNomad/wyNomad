@@ -78,8 +78,6 @@
   <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg?v=4" width="100%" alt="Green contribution snake eating lower counts first and gaining one segment per four contributions, capped at 20" />
 </picture>
 
-<sub>根据 GitHub 贡献日历，先吃低贡献格子；累计每 4 次贡献长一节，最多 20 节。</sub>
-
 <br />
 <sub>保持好奇，持续构建。 · Stay curious. Keep building.</sub>
 
