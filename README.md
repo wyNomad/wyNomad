@@ -58,8 +58,8 @@
 
 <div align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake-dark.svg?v=3" />
-  <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg?v=3" width="100%" alt="Growing snake planning safe routes and eating lower contribution counts first, from 4 to at most 20 segments" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake-dark.svg?v=4" />
+  <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg?v=4" width="100%" alt="Green contribution snake eating lower counts first and gaining one segment per four contributions, capped at 20" />
 </picture>
 
 

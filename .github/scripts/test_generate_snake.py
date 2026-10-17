@@ -55,15 +55,41 @@ class GrowingSnakeTests(unittest.TestCase):
         _, _, eaten = SNAKE.simulate(53, cells)
         self.assertLess(eaten[0][0], SNAKE.make_cycle(53).index((30, 0)) + 1)
 
-    def test_growth_occurs_only_when_a_contribution_is_eaten(self):
+    def test_each_four_contributions_earns_one_segment(self):
         cells = [SNAKE.Cell(0, 0, "2026-01-01", 0, 0),
                  SNAKE.Cell(1, 3, "2026-01-02", 12, 4)]
         _, states, eaten = SNAKE.simulate(2, cells)
         self.assertEqual(len(eaten), 1)
         growth_frame = eaten[0][0]
         self.assertTrue(all(len(body) == 4 for body in states[:growth_frame]))
-        self.assertTrue(all(len(body) == 5 for body in states[growth_frame:]))
+        self.assertEqual([len(body) for body in states[growth_frame:growth_frame + 3]], [5, 6, 7])
+        self.assertEqual(len(states[-1]), 7)
         self.assertEqual(states[0][0], states[-1][0])
+
+    def test_growth_remainders_carry_across_days(self):
+        cells = [SNAKE.Cell(0, 0, "2026-01-01", 1, 1),
+                 SNAKE.Cell(2, 0, "2026-01-02", 2, 1),
+                 SNAKE.Cell(3, 0, "2026-01-03", 4, 2)]
+        _, states, eaten = SNAKE.simulate(6, cells)
+        self.assertEqual([c.count for _, c in eaten], [1, 2, 4])
+        self.assertTrue(all(len(b) == 4 for b in states[:eaten[-1][0]]))
+        self.assertEqual(len(states[-1]), 5)
+
+    def test_sparse_calendar_does_not_force_a_column_scan_or_long_trip_home(self):
+        cells = [SNAKE.Cell(30, 0, "2026-01-01", 1, 1),
+                 SNAKE.Cell(29, 0, "2026-01-02", 2, 1)]
+        route, states, eaten = SNAKE.simulate(53, cells)
+        self.assertEqual(eaten[0][0], 31)
+        self.assertLess(len(route), 100)
+        self.assertEqual(states[-1][:4], states[0])
+
+    def test_whole_route_validation_rejects_collision_and_reordered_food(self):
+        cells = [SNAKE.Cell(1, 0, "2026-01-01", 4, 1),
+                 SNAKE.Cell(2, 0, "2026-01-02", 8, 2)]
+        route, states, eaten = SNAKE.simulate(6, cells)
+        expected = [c for _, c in eaten]
+        self.assertIsNone(SNAKE.replay_route([states[0][1]] + route, states[0], cells, 20, expected))
+        self.assertIsNone(SNAKE.replay_route(route, states[0], cells, 20, expected[::-1]))
 
     def test_empty_year_stays_at_initial_length(self):
         _, states, eaten = SNAKE.simulate(53, [])
@@ -71,7 +97,7 @@ class GrowingSnakeTests(unittest.TestCase):
         self.assertTrue(all(len(body) == 4 for body in states))
 
     def test_svg_contains_capped_body_with_delayed_births_in_both_themes(self):
-        cells = [SNAKE.Cell(x, y, "2026-01-01", 1, 1)
+        cells = [SNAKE.Cell(x, y, "2026-01-01", 4, 1)
                  for x in range(6) for y in range(7)]
         namespace = {"s": "http://www.w3.org/2000/svg"}
         for theme in ("light", "dark"):
@@ -79,6 +105,8 @@ class GrowingSnakeTests(unittest.TestCase):
             root = ET.fromstring(svg)
             parts = [el for el in root.findall("s:rect", namespace) if el.get("class") == "part"]
             self.assertEqual(len(parts), 20)
+            self.assertEqual(root.get("data-contributions-per-segment"), "4")
+            self.assertTrue(all(el.get("fill") == SNAKE.PALETTES[theme][1] for el in parts))
             self.assertEqual([int(el.get("data-birth-frame")) for el in parts[:4]], [0] * 4)
             births = [int(el.get("data-birth-frame")) for el in parts[4:]]
             self.assertTrue(all(a < b for a, b in zip([0] + births, births)))

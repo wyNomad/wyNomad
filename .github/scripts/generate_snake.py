@@ -17,9 +17,10 @@ LEVELS = {
     "THIRD_QUARTILE": 3, "FOURTH_QUARTILE": 4,
 }
 PALETTES = {
-    "light": (["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"], "#6366f1", "#1b1f230a"),
-    "dark": (["#161b22", "#01311f", "#034525", "#0f6d31", "#00c647"], "#818cf8", "#ffffff0d"),
+    "light": (["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"], "#30a14e", "#1b1f230a"),
+    "dark": (["#161b22", "#01311f", "#034525", "#0f6d31", "#00c647"], "#00c647", "#ffffff0d"),
 }
+CONTRIBUTIONS_PER_SEGMENT = 4
 
 
 @dataclass(frozen=True)
@@ -129,20 +130,26 @@ def plan_path(indices, body, food, priority, growth_cap):
     return []
 
 
-def simulate(width, cells, initial_length=4, max_length=20):
+def _simulate_cycle(width, cells, initial_length=4, max_length=20):
     cycle = make_cycle(width)
     indices = {point: i for i, point in enumerate(cycle)}
     food = {(c.x, c.y): c for c in cells if c.count > 0}
-    growth_cap = min(max_length, initial_length + len(food))
-    if not 2 <= initial_length <= max_length or growth_cap >= len(cycle):
+    if not 2 <= initial_length <= max_length or initial_length >= len(cycle):
         raise ValueError("Snake lengths must fit the route")
+    growth_cap = min(max_length, len(cycle) - 1,
+                     initial_length + sum(c.count for c in food.values()) // CONTRIBUTIONS_PER_SEGMENT)
     initial = [cycle[-1 - i] for i in range(initial_length)]
     states, eaten, route = [initial], [], []
+    consumed_count = 0
 
     def step(point):
+        nonlocal consumed_count
         current = states[-1]
         consume = point in food and food[point].count == min(c.count for c in food.values())
-        growing = consume and len(current) < max_length
+        if consume:
+            consumed_count += food[point].count
+        target_length = min(growth_cap, initial_length + consumed_count // CONTRIBUTIONS_PER_SEGMENT)
+        growing = len(current) < target_length
         retained = current if growing else current[:-1]
         if point in retained:
             raise ValueError("Planned route would collide with the body")
@@ -163,8 +170,88 @@ def simulate(width, cells, initial_length=4, max_length=20):
         for point in path:
             step(point)
     # Return on the safe cycle so the first four segments join the next loop.
-    while states[-1][:initial_length] != initial:
+    while states[-1][:initial_length] != initial or len(states[-1]) < growth_cap:
         step(cycle[(indices[states[-1][0]] + 1) % len(cycle)])
+    return route, states, eaten
+
+
+def replay_route(route, initial, cells, max_length, expected):
+    """Validate a complete shortcut, including its effects on later body turns."""
+    food = {(c.x, c.y): c for c in cells if c.count > 0}
+    states, eaten = [initial], []
+    consumed_count = 0
+    target_length = len(initial)
+    for frame, point in enumerate(route, 1):
+        current = states[-1]
+        if abs(point[0] - current[0][0]) + abs(point[1] - current[0][1]) != 1:
+            return None
+        consume = point in food and food[point].count == min(c.count for c in food.values())
+        if consume:
+            consumed_count += food[point].count
+        target_length = min(max_length, len(initial) + consumed_count // CONTRIBUTIONS_PER_SEGMENT)
+        retained = current if len(current) < target_length else current[:-1]
+        if point in retained:
+            return None
+        states.append([point] + retained)
+        if consume:
+            eaten.append((frame, food.pop(point)))
+    if (food or [c for _, c in eaten] != expected or states[-1][:len(initial)] != initial
+            or len(states[-1]) != target_length):
+        return None
+    return states, eaten
+
+
+def shortcut_path(board, body, target, blocked):
+    """Find a direct path without the cycle's forward-only restriction."""
+    start = body[0]
+    obstacles = set(body[1:]) | blocked
+    parents, queue = {start: None}, deque([start])
+    while queue:
+        point = queue.popleft()
+        if point == target:
+            path = []
+            while point != start:
+                path.append(point)
+                point = parents[point]
+            return path[::-1]
+        for dx, dy in ((1, 0), (0, -1), (0, 1), (-1, 0)):
+            nxt = point[0] + dx, point[1] + dy
+            if nxt in board and nxt not in parents and nxt not in obstacles:
+                parents[nxt] = point
+                queue.append(nxt)
+    return []
+
+
+def simulate(width, cells, initial_length=4, max_length=20):
+    route, states, eaten = _simulate_cycle(width, cells, initial_length, max_length)
+    if not eaten:
+        return route, states, eaten
+    board = set(make_cycle(width))
+    expected = [cell for _, cell in eaten]
+    # Shorten complete food-to-food legs, then replay the entire animation.
+    # A locally safe turn can trap the body later; reject that shortcut outright.
+    for _ in range(2):
+        frames = [frame for frame, _ in eaten]
+        legs = list(zip([0] + frames[:-1], frames))
+        home_end = len(route) - initial_length + 1
+        if home_end > frames[-1]:
+            legs.append((frames[-1], home_end))
+        changed = False
+        for start, end in reversed(legs):
+            target = route[end - 1]
+            remaining = {(c.x, c.y): c for frame, c in eaten if frame > start}
+            priority = min((c.count for c in remaining.values()), default=0)
+            blocked = {p for p, c in remaining.items() if c.count == priority and p != target}
+            path = shortcut_path(board, states[start], target, blocked)
+            if not path or len(path) >= end - start:
+                continue
+            candidate = route[:start] + path + route[end:]
+            checked = replay_route(candidate, states[0], cells, len(states[-1]), expected)
+            if checked is not None:
+                route, (states, eaten) = candidate, checked
+                changed = True
+        if not changed:
+            break
     return route, states, eaten
 
 
@@ -239,12 +326,14 @@ def create_svg(username, width, cells, theme, initial_length=4, max_length=20):
     styles.append('@media(prefers-reduced-motion:reduce){.part,.food,.progress{animation:none!important}.part[data-extra="true"]{opacity:0!important}}')
     title = escape(f"{username}'s growing contribution snake")
     desc = escape(f"Real GitHub contribution days. Starts with {initial_length} segments; "
-                  f"eats lower contribution counts first and grows up to {max_length} segments. "
+                  f"eats lower contribution counts first and gains one segment per "
+                  f"{CONTRIBUTIONS_PER_SEGMENT} contributions, up to {max_length} segments. "
                   "Restarts after each loop.")
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{(width + 3) * 16}" height="176" '
         f'viewBox="-24 -16 {(width + 3) * 16} 176" role="img" aria-labelledby="title-{theme} desc-{theme}" '
         f'data-initial-length="{initial_length}" data-max-length="{max_length}" '
+        f'data-contributions-per-segment="{CONTRIBUTIONS_PER_SEGMENT}" '
         f'data-final-length="{actual_length}" data-food-count="{len(eaten)}" '
         f'data-eat-counts="{",".join(str(c.count) for _, c in eaten)}" '
         f'data-route-steps="{route_frames}" data-frame-ms="{frame_ms}">'
