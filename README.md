@@ -58,8 +58,8 @@
 
 <div align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake-dark.svg?v=2" />
-  <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg?v=2" width="100%" alt="Growing snake eating wyNomad's GitHub contribution days, from 4 to at most 20 segments" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake-dark.svg?v=3" />
+  <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg?v=3" width="100%" alt="Growing snake planning safe routes and eating lower contribution counts first, from 4 to at most 20 segments" />
 </picture>
 
 

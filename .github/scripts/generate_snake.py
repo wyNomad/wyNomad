@@ -1,6 +1,7 @@
 """Generate a growing contribution snake as a self-contained, script-free SVG."""
 
 import argparse
+from collections import deque
 from dataclasses import dataclass
 from datetime import date
 from html import escape
@@ -93,21 +94,78 @@ def make_cycle(width, height=7):
     return cycle
 
 
+def plan_path(indices, body, food, priority, growth_cap):
+    """Shortest safe path to the current count tier, keeping room for growth.
+
+    Shortcuts preserve the body's order on a Hamiltonian cycle. This leaves a
+    guaranteed safe next step when no direct path around higher-count food exists.
+    """
+    start, size = body[0], len(indices)
+    head, tail = indices[start], indices[body[-1]]
+    gap = (tail - head) % size
+    reserve = growth_cap - len(body) + 2
+    limit = gap - reserve
+    parents, queue = {start: None}, deque([start])
+    while queue:
+        point = queue.popleft()
+        if point != start and point in food and food[point].count == priority:
+            path = []
+            while point != start:
+                path.append(point)
+                point = parents[point]
+            return path[::-1]
+        previous = (indices[point] - head) % size
+        for dx, dy in ((1, 0), (0, -1), (0, 1), (-1, 0)):
+            nxt = point[0] + dx, point[1] + dy
+            if nxt not in indices or nxt in parents:
+                continue
+            progress = (indices[nxt] - head) % size
+            if not previous < progress <= limit:
+                continue
+            if nxt in food and food[nxt].count > priority:
+                continue
+            parents[nxt] = point
+            queue.append(nxt)
+    return []
+
+
 def simulate(width, cells, initial_length=4, max_length=20):
     cycle = make_cycle(width)
+    indices = {point: i for i, point in enumerate(cycle)}
     food = {(c.x, c.y): c for c in cells if c.count > 0}
-    if not 2 <= initial_length <= max_length or min(max_length, initial_length + len(food)) >= len(cycle):
+    growth_cap = min(max_length, initial_length + len(food))
+    if not 2 <= initial_length <= max_length or growth_cap >= len(cycle):
         raise ValueError("Snake lengths must fit the route")
-    length, eaten, states = initial_length, [], []
-    for frame in range(len(cycle) + 1):
-        head_index = (frame - 1) % len(cycle)
-        head = cycle[head_index]
-        if frame and head in food:
-            eaten.append((frame, food.pop(head)))
-            length = min(max_length, length + 1)
-        body = [cycle[(head_index - offset) % len(cycle)] for offset in range(length)]
+    initial = [cycle[-1 - i] for i in range(initial_length)]
+    states, eaten, route = [initial], [], []
+
+    def step(point):
+        current = states[-1]
+        consume = point in food and food[point].count == min(c.count for c in food.values())
+        growing = consume and len(current) < max_length
+        retained = current if growing else current[:-1]
+        if point in retained:
+            raise ValueError("Planned route would collide with the body")
+        body = [point] + retained
+        route.append(point)
         states.append(body)
-    return cycle, states, eaten
+        if consume:
+            eaten.append((len(route), food.pop(point)))
+
+    if not food:
+        for point in cycle:
+            step(point)
+    while food:
+        priority = min(cell.count for cell in food.values())
+        path = plan_path(indices, states[-1], food, priority, growth_cap)
+        if not path:
+            path = [cycle[(indices[states[-1][0]] + 1) % len(cycle)]]
+        for point in path:
+            step(point)
+    # Return on the safe cycle so the first four segments join the next loop.
+    while states[-1][:initial_length] != initial:
+        step(cycle[(indices[states[-1][0]] + 1) % len(cycle)])
+    return route, states, eaten
 
 
 def position_keys(points, route_frames, total_frames):
@@ -125,10 +183,12 @@ def position_keys(points, route_frames, total_frames):
 
 def create_svg(username, width, cells, theme, initial_length=4, max_length=20):
     colors, snake_color, border = PALETTES[theme]
-    cycle, states, eaten = simulate(width, cells, initial_length, max_length)
-    route_frames, pause_frames = len(cycle), 20
+    route, states, eaten = simulate(width, cells, initial_length, max_length)
+    route_frames, pause_frames = len(route), 20
     total_frames = route_frames + pause_frames
-    duration = total_frames * 90
+    frame_ms = min(90, max(25, round(40000 / route_frames)))
+    duration = total_frames * frame_ms
+    epsilon = min(.001, 50 / total_frames)
     eat_times = {(c.x, c.y): frame for frame, c in eaten}
     actual_length = len(states[-1])
     styles = [
@@ -140,7 +200,7 @@ def create_svg(username, width, cells, theme, initial_length=4, max_length=20):
         name = f"{theme}-food{i}"
         if cell.count:
             t = 100 * eat_times[(cell.x, cell.y)] / total_frames
-            styles.append("@keyframes " + name + "{0%," + f"{t - .001:.5f}%"
+            styles.append("@keyframes " + name + "{0%," + f"{t - epsilon:.5f}%"
                           + "{fill:" + colors[cell.level] + "}"
                           + f"{t:.5f}%,100%" + "{fill:" + colors[0] + "}}")
         grid.append(
@@ -151,12 +211,12 @@ def create_svg(username, width, cells, theme, initial_length=4, max_length=20):
         )
     for i in range(actual_length):
         birth = next(frame for frame, body in enumerate(states) if len(body) > i)
-        points = [cycle[(frame - 1 - i) % len(cycle)] for frame in range(route_frames + 1)]
+        points = [body[i] if len(body) > i else states[birth][i] for body in states]
         styles.append(f"@keyframes {theme}-move{i}{{{position_keys(points, route_frames, total_frames)}}}")
         animations, opacity = f"{theme}-move{i}", 1
         if birth:
             t = birth / total_frames * 100
-            styles.append(f"@keyframes {theme}-grow{i}{{0%,{t - .001:.5f}%{{opacity:0}}"
+            styles.append(f"@keyframes {theme}-grow{i}{{0%,{t - epsilon:.5f}%{{opacity:0}}"
                           f"{t:.5f}%,100%{{opacity:1}}}}")
             animations += f",{theme}-grow{i}"
             opacity = 0
@@ -171,7 +231,7 @@ def create_svg(username, width, cells, theme, initial_length=4, max_length=20):
     progress = ["0%{transform:scaleX(0)}"]
     for index, (frame, _) in enumerate(eaten, 1):
         t = frame / total_frames * 100
-        progress.append(f"{t - .001:.5f}%{{transform:scaleX({(index - 1) / len(eaten):.6f})}}"
+        progress.append(f"{t - epsilon:.5f}%{{transform:scaleX({(index - 1) / len(eaten):.6f})}}"
                         f"{t:.5f}%{{transform:scaleX({index / len(eaten):.6f})}}")
     progress.append(f"100%{{transform:scaleX({1 if eaten else 0})}}")
     styles.append("@keyframes " + theme + "-progress{" + "".join(progress) + "}")
@@ -179,12 +239,15 @@ def create_svg(username, width, cells, theme, initial_length=4, max_length=20):
     styles.append('@media(prefers-reduced-motion:reduce){.part,.food,.progress{animation:none!important}.part[data-extra="true"]{opacity:0!important}}')
     title = escape(f"{username}'s growing contribution snake")
     desc = escape(f"Real GitHub contribution days. Starts with {initial_length} segments; "
-                  f"each active day eaten adds one segment, capped at {max_length}. Restarts after each loop.")
+                  f"eats lower contribution counts first and grows up to {max_length} segments. "
+                  "Restarts after each loop.")
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{(width + 3) * 16}" height="176" '
         f'viewBox="-24 -16 {(width + 3) * 16} 176" role="img" aria-labelledby="title-{theme} desc-{theme}" '
         f'data-initial-length="{initial_length}" data-max-length="{max_length}" '
-        f'data-final-length="{actual_length}" data-food-count="{len(eaten)}" data-frame-ms="90">'
+        f'data-final-length="{actual_length}" data-food-count="{len(eaten)}" '
+        f'data-eat-counts="{",".join(str(c.count) for _, c in eaten)}" '
+        f'data-route-steps="{route_frames}" data-frame-ms="{frame_ms}">'
         f'<title id="title-{theme}">{title}</title><desc id="desc-{theme}">{desc}</desc>'
         f'<style>{"".join(styles)}</style>{"".join(grid)}{"".join(parts)}'
         f'<rect x="0" y="140" width="{width * 16}" height="8" rx="3" fill="{colors[0]}"/>'

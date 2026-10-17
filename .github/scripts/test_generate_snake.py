@@ -1,6 +1,7 @@
 import importlib.util
 import json
 from pathlib import Path
+import random
 import sys
 import unittest
 import xml.etree.ElementTree as ET
@@ -17,9 +18,9 @@ class GrowingSnakeTests(unittest.TestCase):
         for width in (1, 2, 3, 52, 53, 54):
             cells = [SNAKE.Cell(x, y, "2026-01-01", 1, 1)
                      for x in range(width) for y in range(7)]
-            cycle, states, eaten = SNAKE.simulate(width, cells)
-            self.assertEqual(len(cycle), len(set(cycle)))
-            for a, b in zip(cycle, cycle[1:] + cycle[:1]):
+            route, states, eaten = SNAKE.simulate(width, cells)
+            heads = [states[0][0]] + route
+            for a, b in zip(heads, heads[1:]):
                 self.assertEqual(abs(a[0] - b[0]) + abs(a[1] - b[1]), 1)
             self.assertEqual({(cell.x, cell.y) for _, cell in eaten},
                              {(cell.x, cell.y) for cell in cells})
@@ -30,6 +31,29 @@ class GrowingSnakeTests(unittest.TestCase):
                 self.assertIn(len(body) - len(previous), (0, 1))
                 self.assertEqual(body[1:], previous[:len(body) - 1])
                 previous = body
+            self.assertEqual(states[-1][:4], states[0])
+
+    def test_low_counts_are_eaten_first_even_when_high_counts_block_the_way(self):
+        cells = [SNAKE.Cell(x, y, "2026-01-01", 1 if (x, y) == (1, 3) else 20, 1)
+                 for x in range(3) for y in range(7)]
+        _, states, eaten = SNAKE.simulate(3, cells)
+        self.assertEqual([cell.count for _, cell in eaten], [1] + [20] * 20)
+        self.assertTrue(all(len(body) == len(set(body)) for body in states))
+
+    def test_mixed_counts_are_sorted_with_no_missing_or_repeated_food(self):
+        for width in (2, 7, 53):
+            rng = random.Random(width)
+            cells = [SNAKE.Cell(x, y, "2026-01-01", rng.randint(1, 8), 1)
+                     for x in range(width) for y in range(7) if rng.random() < .6]
+            _, states, eaten = SNAKE.simulate(width, cells)
+            self.assertEqual([cell.count for _, cell in eaten], sorted(c.count for c in cells))
+            self.assertEqual(len({(c.x, c.y) for _, c in eaten}), len(cells))
+            self.assertTrue(all(len(body) == len(set(body)) for body in states))
+
+    def test_same_count_uses_a_shorter_safe_route_than_column_scanning(self):
+        cells = [SNAKE.Cell(30, 0, "2026-01-01", 1, 1)]
+        _, _, eaten = SNAKE.simulate(53, cells)
+        self.assertLess(eaten[0][0], SNAKE.make_cycle(53).index((30, 0)) + 1)
 
     def test_growth_occurs_only_when_a_contribution_is_eaten(self):
         cells = [SNAKE.Cell(0, 0, "2026-01-01", 0, 0),
@@ -59,6 +83,8 @@ class GrowingSnakeTests(unittest.TestCase):
             births = [int(el.get("data-birth-frame")) for el in parts[4:]]
             self.assertTrue(all(a < b for a, b in zip([0] + births, births)))
             self.assertTrue(all(el.get("opacity") == "0" for el in parts[4:]))
+            counts = list(map(int, root.get("data-eat-counts").split(",")))
+            self.assertEqual(counts, sorted(counts))
             self.assertIn("prefers-reduced-motion", svg)
             self.assertNotIn("<script", svg)
             self.assertNotIn("http://", svg.replace('xmlns="http://www.w3.org/2000/svg"', ''))
