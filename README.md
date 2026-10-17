@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="assets/header.svg" width="100%" alt="wyNomad — Explore. Build. Keep moving." />
+<img src="assets/header.svg" width="100%" alt="wyNomad — AI Infra / Robotics / Computer Vision" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&amp;weight=500&amp;size=19&amp;duration=2800&amp;pause=1000&amp;color=6366F1&amp;center=true&amp;vCenter=true&amp;width=660&amp;lines=Computer+Vision+%C2%B7+Robotics+%C2%B7+AI;Python+%C2%B7+C%2B%2B+%C2%B7+Linux;Learning+by+building.+Growing+with+open+source." width="100%" alt="Computer Vision · Robotics · AI — Learning by building, growing through open source" />
+<img src="https://readme-typing-svg.demolab.com?font=Noto+Sans+SC&amp;weight=500&amp;size=22&amp;duration=3200&amp;pause=1800&amp;color=818CF8&amp;center=true&amp;vCenter=true&amp;width=760&amp;height=60&amp;lines=%E9%83%BD%E6%98%AF%E9%A3%8E%E6%99%AF%EF%BC%8C%E5%B9%B8%E4%BC%9A%E3%80%82;All+is+scenery.+A+pleasure+to+meet+you." width="100%" alt="都是风景，幸会。 / All is scenery. A pleasure to meet you." />
 
 **Hi, I'm wyi 👋**
 
-一名在代码与实践中探索的学生，关注计算机视觉、机器人与 AI 基础设施。
+一名在代码与实践中探索的学生，以 AI Infra 为主要方向，持续探索 Robotics 与计算机视觉。
 
 <a href="https://github.com/wyNomad?tab=repositories"><img src="https://img.shields.io/badge/Explore_my_projects-6366F1?style=flat-square&amp;logo=github&amp;logoColor=white" alt="Explore my projects" /></a>
 <a href="https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad"><img src="https://img.shields.io/badge/Open_source_contributions-0EA5E9?style=flat-square&amp;logo=opensourceinitiative&amp;logoColor=white" alt="Open source contributions" /></a>
@@ -15,9 +15,7 @@
 
 ### 🧭 正在探索 · Currently Exploring
 
-- **Computer Vision** · 通过视觉学习与实践，理解图像与算法。
-- **Robotics** · 在 ROS 2 与 C++ 中探索机器人开发。
-- **AI Infrastructure** · 参与 [Torch-FL](https://github.com/flagos-ai/Torch-FL) 开源贡献，实践多平台 CI 与测试。
+<img src="assets/focus.svg" width="100%" alt="探索方向，按优先级排列：01 AI Infra — 推理框架、算子、CI/CD；02 Robotics — ROS 2、RL、VLA、深度学习；03 Computer Vision — 深度学习、视觉感知。" />
 
 ### 🛠️ 技术栈 · Tech Stack
 
@@ -32,9 +30,9 @@
 
 | 方向 | 项目 | 内容 |
 | :--- | :--- | :--- |
-| 👁️ 计算机视觉 | [cv_study](https://github.com/wyNomad/cv_study) | 计算机视觉学习与 Python 实践 |
+| ⚙️ AI Infra · 开源贡献 | [Torch-FL](https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad) | 多平台 CI、构建与测试流程改进 |
 | 🤖 机器人 | [vm_ros2_ws](https://github.com/wyNomad/vm_ros2_ws) | ROS 2 工作空间与 C++ 开发实践 |
-| ⚙️ 开源贡献 | [Torch-FL](https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad) | 多平台 CI、构建与测试流程改进 |
+| 👁️ 计算机视觉 | [cv_study](https://github.com/wyNomad/cv_study) | 计算机视觉学习与 Python 实践 |
 
 ### 📊 数据一览 · GitHub Stats
 
