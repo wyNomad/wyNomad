@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="220" viewBox="0 0 960 220" role="img" aria-labelledby="title desc">
+  <title id="title">wyNomad</title>
+  <desc id="desc">Explore. Build. Keep moving. A blue and violet horizon.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#151b40"/><stop offset=".55" stop-color="#28366b"/><stop offset="1" stop-color="#134d74"/></linearGradient>
+    <linearGradient id="wave"><stop stop-color="#818cf8"/><stop offset=".55" stop-color="#38bdf8"/><stop offset="1" stop-color="#a5b4fc"/></linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#fff" stroke-opacity=".035"/></pattern>
+  </defs>
+  <rect width="960" height="220" rx="16" fill="url(#bg)"/>
+  <rect width="960" height="220" rx="16" fill="url(#grid)"/>
+  <g fill="none" stroke="#a5b4fc" stroke-opacity=".16"><circle cx="836" cy="57" r="92"/><circle cx="836" cy="57" r="65"/><circle cx="836" cy="57" r="38"/></g>
+  <g fill="#c7d2fe"><circle cx="82" cy="45" r="2"/><circle cx="763" cy="112" r="2"/><circle cx="884" cy="144" r="2"/><circle cx="700" cy="35" r="1.5"/></g>
+  <text x="480" y="55" text-anchor="middle" fill="#a5b4fc" font-family="monospace" font-size="11" letter-spacing="5">LEARN / BUILD / EXPLORE</text>
+  <text x="480" y="119" text-anchor="middle" fill="#f8fafc" font-family="Segoe UI, Ubuntu, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="1">wyNomad<tspan fill="#38bdf8">.</tspan></text>
+  <text x="480" y="151" text-anchor="middle" fill="#cbd5e1" font-family="Segoe UI, Ubuntu, Arial, sans-serif" font-size="15" letter-spacing="2">Explore. Build. Keep moving.</text>
+  <path d="M0 188C155 152 260 230 430 197S750 164 960 191V220H0Z" fill="url(#wave)" opacity=".16"/>
+  <path d="M0 204C185 174 278 239 480 210S776 191 960 205V220H0Z" fill="url(#wave)" opacity=".28"/>
+</svg>

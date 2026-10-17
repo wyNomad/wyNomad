@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="90" viewBox="0 0 960 90" role="img" aria-label="Blue and violet waves">
+  <defs><linearGradient id="wave"><stop stop-color="#6366f1"/><stop offset=".5" stop-color="#0ea5e9"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs>
+  <path d="M0 44C160 4 280 87 480 44S790 8 960 44V90H0Z" fill="url(#wave)" opacity=".16"/>
+  <path d="M0 64C160 24 280 100 480 61S790 24 960 59V90H0Z" fill="url(#wave)" opacity=".3"/>
+  <path d="M0 79C160 49 280 112 480 78S790 51 960 75V90H0Z" fill="url(#wave)" opacity=".6"/>
+</svg>
