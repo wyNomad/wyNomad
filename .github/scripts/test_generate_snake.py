@@ -55,9 +55,9 @@ class GrowingSnakeTests(unittest.TestCase):
         _, _, eaten = SNAKE.simulate(53, cells)
         self.assertLess(eaten[0][0], SNAKE.make_cycle(53).index((30, 0)) + 1)
 
-    def test_each_four_contributions_earns_one_segment(self):
+    def test_each_ten_contributions_earns_one_segment(self):
         cells = [SNAKE.Cell(0, 0, "2026-01-01", 0, 0),
-                 SNAKE.Cell(1, 3, "2026-01-02", 12, 4)]
+                 SNAKE.Cell(1, 3, "2026-01-02", 30, 4)]
         _, states, eaten = SNAKE.simulate(2, cells)
         self.assertEqual(len(eaten), 1)
         growth_frame = eaten[0][0]
@@ -68,12 +68,19 @@ class GrowingSnakeTests(unittest.TestCase):
 
     def test_growth_remainders_carry_across_days(self):
         cells = [SNAKE.Cell(0, 0, "2026-01-01", 1, 1),
-                 SNAKE.Cell(2, 0, "2026-01-02", 2, 1),
-                 SNAKE.Cell(3, 0, "2026-01-03", 4, 2)]
+                 SNAKE.Cell(2, 0, "2026-01-02", 3, 1),
+                 SNAKE.Cell(3, 0, "2026-01-03", 6, 2)]
         _, states, eaten = SNAKE.simulate(6, cells)
-        self.assertEqual([c.count for _, c in eaten], [1, 2, 4])
+        self.assertEqual([c.count for _, c in eaten], [1, 3, 6])
         self.assertTrue(all(len(b) == 4 for b in states[:eaten[-1][0]]))
         self.assertEqual(len(states[-1]), 5)
+
+    def test_ten_contribution_thresholds_and_cap(self):
+        for count, length in ((9, 4), (10, 5), (19, 5), (20, 6), (100, 14), (200, 20)):
+            with self.subTest(count=count):
+                cells = [SNAKE.Cell(3, 2, "2026-01-01", count, 1)]
+                _, states, _ = SNAKE.simulate(6, cells)
+                self.assertEqual(len(states[-1]), length)
 
     def test_sparse_calendar_does_not_force_a_column_scan_or_long_trip_home(self):
         cells = [SNAKE.Cell(30, 0, "2026-01-01", 1, 1),
@@ -97,7 +104,7 @@ class GrowingSnakeTests(unittest.TestCase):
         self.assertTrue(all(len(body) == 4 for body in states))
 
     def test_svg_contains_capped_body_with_delayed_births_in_both_themes(self):
-        cells = [SNAKE.Cell(x, y, "2026-01-01", 4, 1)
+        cells = [SNAKE.Cell(x, y, "2026-01-01", 10, 1)
                  for x in range(6) for y in range(7)]
         namespace = {"s": "http://www.w3.org/2000/svg"}
         for theme in ("light", "dark"):
@@ -105,7 +112,7 @@ class GrowingSnakeTests(unittest.TestCase):
             root = ET.fromstring(svg)
             parts = [el for el in root.findall("s:rect", namespace) if el.get("class") == "part"]
             self.assertEqual(len(parts), 20)
-            self.assertEqual(root.get("data-contributions-per-segment"), "4")
+            self.assertEqual(root.get("data-contributions-per-segment"), "10")
             self.assertTrue(all(el.get("fill") == SNAKE.PALETTES[theme][1] for el in parts))
             self.assertEqual([int(el.get("data-birth-frame")) for el in parts[:4]], [0] * 4)
             births = [int(el.get("data-birth-frame")) for el in parts[4:]]

@@ -20,7 +20,7 @@ PALETTES = {
     "light": (["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"], "#30a14e", "#1b1f230a"),
     "dark": (["#161b22", "#01311f", "#034525", "#0f6d31", "#00c647"], "#00c647", "#ffffff0d"),
 }
-CONTRIBUTIONS_PER_SEGMENT = 4
+CONTRIBUTIONS_PER_SEGMENT = 10
 
 
 @dataclass(frozen=True)
