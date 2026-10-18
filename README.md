@@ -13,9 +13,14 @@
 
 </div>
 
-### 🧭 正在探索 · Currently Exploring
+### 🐍 贡献足迹 · Contribution Snake
 
-<img src="assets/focus.svg" width="100%" alt="探索方向，按优先级排列：01 AI Infra — 推理框架、算子、CI/CD；02 Robotics — ROS 2、RL、VLA、深度学习；03 Computer Vision — 深度学习、视觉感知。" />
+<div align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake-dark.svg?v=4" />
+  <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg?v=4" width="100%" alt="Green contribution snake eating lower counts first and gaining one segment per four contributions, capped at 20" />
+</picture>
+</div>
 
 ### 🛠️ 技术栈 · Tech Stack
 
@@ -25,6 +30,10 @@
   <img src="https://skillicons.dev/icons?i=python%2Ccpp%2Cc%2Cpytorch%2Copencv%2Cros%2Clinux%2Cgit&amp;theme=light&amp;perline=8" alt="Python, C++, C, PyTorch, OpenCV, ROS, Linux, Git" />
 </picture>
 </div>
+
+### 🧭 正在探索 · Currently Exploring
+
+<img src="assets/focus.svg" width="100%" alt="探索方向，按优先级排列：01 AI Infra — 推理框架、算子、CI/CD；02 Robotics — ROS 2、RL、VLA、深度学习；03 Computer Vision — 深度学习、视觉感知。" />
 
 ### 🚀 项目与贡献 · Projects & Contributions
 
@@ -70,13 +79,7 @@
 
 <sub>公开活动自动统计；语言图反映仓库与提交分布。具体工作与协作贡献见上方记录。</sub>
 
-### 🐍 贡献足迹 · Contribution Snake
-
 <div align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake-dark.svg?v=4" />
-  <img src="https://raw.githubusercontent.com/wyNomad/wyNomad/output/github-contribution-grid-snake.svg?v=4" width="100%" alt="Green contribution snake eating lower counts first and gaining one segment per four contributions, capped at 20" />
-</picture>
 
 <br />
 <sub>保持好奇，持续构建。 · Stay curious. Keep building.</sub>
