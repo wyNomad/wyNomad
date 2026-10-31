@@ -35,11 +35,10 @@
 
 <img src="assets/focus.svg" width="100%" alt="探索方向，按优先级排列：01 AI Infra — 推理框架、算子、CI/CD；02 Robotics — ROS 2、RL、VLA、深度学习；03 Computer Vision — 深度学习、视觉感知。" />
 
-### 🚀 项目与贡献 · Projects & Contributions
+### 🚀 精选项目 · Featured Projects
 
 | 方向 | 项目 | 内容 |
 | :--- | :--- | :--- |
-| ⚙️ AI Infra · 开源贡献 | [Torch-FL](https://github.com/flagos-ai/Torch-FL) · [FlagScale](https://github.com/flagos-ai/FlagScale) | 多平台 CI、构建与测试流水线、按改动路由与测试报告 |
 | ⚙️ AI Infra · 推理优化 | [vLLM / FlagOS · Iluvatar 实验](https://github.com/wyNomad/vllm-plugin-FL/tree/perf/iluvatar-native2d-context-routing/experiments/iluvatar) | 基于上游的 attention 推理优化，包含插件实现、性能剖析与实验验证 |
 | 🤖 机器人 | [农业巡检机器人](https://github.com/wyNomad/agricultural-inspection-robot) · [香橙派侧](https://github.com/wyNomad/agricultural-inspection-orangepi) | ROS 2 双主控项目，保留早期 / 中期源码，最终版本暂未公开 |
 | 🤖 机器人视觉 | [RoboMaster 自瞄](https://github.com/wyNomad/robomaster-auto-aim) | 相机采集、YOLO 装甲板检测、PnP 与云台串口，完整闭环仍在开发 |
@@ -48,17 +47,16 @@
 
 ### 🔗 开源贡献 · Open-source Contributions
 
-参与 Torch-FL 与 FlagScale 的多平台 CI、构建测试与训练环境适配，以下为已合入上游的代表工作。
+**[FlagOS](https://github.com/flagos-ai) · AI 基础设施与多平台适配**
 
-| 工作 | 上游记录 | 状态 |
-| :--- | :--- | :--- |
-| 昇腾 CANN / ACLNN、海光 DCU、平头哥 PPU 的构建与集成测试 | [Torch-FL #71](https://github.com/flagos-ai/Torch-FL/pull/71) · [#81](https://github.com/flagos-ai/Torch-FL/pull/81) · [#91](https://github.com/flagos-ai/Torch-FL/pull/91) | 已合入 · 共同作者 |
-| 按代码改动选择测试平台，支持受信任 Fork 按需运行 CI | [Torch-FL #521](https://github.com/flagos-ai/Torch-FL/pull/521) | 已合入 |
-| 收集各平台 pytest 结果并上报 FlagCICD | [Torch-FL #542](https://github.com/flagos-ai/Torch-FL/pull/542) | 已合入 |
-| 昆仑芯 P800 训练环境、CI 与 Qwen3 训练测试支持 | [FlagScale #1282](https://github.com/flagos-ai/FlagScale/pull/1282) | 已合入 · 共同作者 |
-| 清理独立流水线迁移后的通用集成任务，统一配置与调用接口 | [个人提交](https://github.com/flagos-ai/Torch-FL/commit/1353c33ca7c1ac35ddbd21e0f9833db605d1a5ee) · [协作 PR #505](https://github.com/flagos-ai/Torch-FL/pull/505) | 已合入 · 共同作者 |
+参与 [Torch-FL](https://github.com/flagos-ai/Torch-FL) 与 [FlagScale](https://github.com/flagos-ai/FlagScale) 的多平台 CI、构建测试与训练环境适配。
 
-协作开发仓库：[Torch-FL](https://github.com/BrianPei/PyTorch-Plugin-FL/branches) · [FlagScale](https://github.com/BrianPei/FlagScale/branches) · [我发起的 Torch-FL PR](https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad)
+`AI Infrastructure` `CI/CD` `Testing & Compatibility`
+
+- **Torch-FL · 测试平台路由** — 按代码改动选择测试平台，支持受信任 Fork 按需运行 CI。[查看实现 ↗](https://github.com/flagos-ai/Torch-FL/pull/521)
+- **FlagScale · 训练环境适配** — 参与昆仑芯 P800 环境、CI 与 Qwen3 训练测试支持（共同作者）。[查看协作 ↗](https://github.com/flagos-ai/FlagScale/pull/1282)
+
+[GitHub 贡献记录 ↗](https://github.com/wyNomad?tab=overview&org=flagos-ai) · [我发起的 Torch-FL PR ↗](https://github.com/flagos-ai/Torch-FL/pulls?q=is%3Apr+author%3AwyNomad)
 
 ### 📊 数据一览 · GitHub Stats
 
@@ -77,7 +75,7 @@
 </picture>
 </div>
 
-<sub>公开活动自动统计；语言图反映仓库与提交分布。具体工作与协作贡献见上方记录。</sub>
+<sub>公开活动自动统计；语言图反映仓库与提交分布。开源工作方向与代表贡献见上方摘要。</sub>
 
 <div align="center">
 
