@@ -6,7 +6,7 @@
 
 **Hi, I'm wyi 👋**
 
-一名在代码与实践中探索的学生，以 AI Infra 为主要方向，持续探索 Robotics 与计算机视觉。
+在代码与实践中持续探索 AI Infra , Robotics 与 计算机视觉。
 
 <a href="https://github.com/wyNomad?tab=repositories"><img src="https://img.shields.io/badge/Explore_my_projects-6366F1?style=flat-square&amp;logo=github&amp;logoColor=white" alt="Explore my projects" /></a>
 <a href="#-开源贡献--open-source-contributions"><img src="https://img.shields.io/badge/Open_source_contributions-0EA5E9?style=flat-square&amp;logo=opensourceinitiative&amp;logoColor=white" alt="Open source contributions" /></a>
